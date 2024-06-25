@@ -17,9 +17,17 @@ type Game struct {
 	Height   int32
 	FontSize int32
 
+	Character         Character
+	CharacterPosition rl.Vector2
 }
+
+type Character struct {
+	Position rl.Vector2
+	Size     rl.Vector2
+	Color    rl.Color
+}
+
 func main() {
-	fmt.Println("Hello, World!")
 	game := &Game{}
 	game.Init()
 
@@ -42,6 +50,13 @@ func (g *Game) Draw() {
 	rl.BeginDrawing()
 	rl.ClearBackground(BG_COLOR)
 	rl.DrawText(welcomeText, g.Width/2-rl.MeasureText(welcomeText, g.FontSize)/2, g.Height/2, g.FontSize, TEXT_COLOR)
+
+	g.Character = Character{
+		Position: rl.Vector2{X: 0, Y: 0},
+		Color:    CHAR_COLOR,
+		Size:     rl.Vector2{X: 20, Y: 20},
+	}
+	rl.DrawRectangleV(g.Character.Position, g.Character.Size, g.Character.Color)
 
 	rl.EndDrawing()
 }
